@@ -1,0 +1,14 @@
+digraph schema {.meta-left}
+node [shape=Mrecord]
+rankdir=LR
+
+{.repeated section Entities}
+{Name} [
+label="{Name}{.repeated section Attributes} | {.section Key}<{Name}> {.end}{Name}{.end}"
+]
+{.end}
+
+{.repeated section Relations}{Child}:{ChildKey} -> {Parent}:{ParentKey};
+{.end}
+{.meta-right}
+

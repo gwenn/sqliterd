@@ -1,6 +1,39 @@
 digraph schema {.meta-left}
-node [shape=Mrecord]
 rankdir=LR
+/*
+ranksep=0.5
+nodesep=0.4
+pad="0.4,0.4"
+margin="0,0"
+concentrate=true
+*/
+labelloc=t
+/*
+fontsize=13
+fontname="Arial Bold"
+*/
+node [
+shape=Mrecord
+fontsize=10
+fontname="Arial"
+/*
+margin="0.07,0.05"
+penwidth=1.0
+*/
+]
+edge [
+/*
+fontsize=7
+fontname="Arial"
+dir=both
+penwidth=1.0
+labelangle=32
+labeldistance=1.8
+*/
+arrowsize=0.9
+]
+
+label="TODO\n\n"
 
 {.repeated section Entities}
 {Name} [
@@ -10,5 +43,7 @@ label="{Name}{.repeated section Attributes} | {.section Key}<{Name}> {.end}{Name
 
 {.repeated section Relations}{Child}:{ChildKey} -> {Parent}:{ParentKey};
 {.end}
+//TODO headlabel,taillabel & cardinality
+//TODO weight
 {.meta-right}
 
