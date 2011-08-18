@@ -86,7 +86,7 @@ func main() {
 }
 
 func render(erd *Erd) {
-	template, err := template.ParseFile("tmpl.dot", nil)
+	template, err := template.ParseFile("tmpl.dot")
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error loading template file: %s\n", err)
 		os.Exit(1)
