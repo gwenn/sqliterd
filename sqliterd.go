@@ -4,9 +4,9 @@ The author disclaims copyright to this source code.
 package main
 
 import (
-	"fmt"
+	"log"
 	"os"
-	sqlite "github.com/gwenn/sqlite"
+	"github.com/gwenn/sqlite"
 	"template"
 )
 
@@ -34,26 +34,22 @@ type Relationship struct {
 
 func main() {
 	if len(os.Args) == 1 {
-		fmt.Fprintf(os.Stderr, "No database specified\n")
-		os.Exit(1)
+		log.Fatalf("No database specified\n")
 	}
 	db, err := sqlite.Open(os.Args[1])
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error opening database '%s': %s\n", os.Args[1], err)
-		os.Exit(1)
+		log.Fatalf("Error opening database '%s': %s\n", os.Args[1], err)
 	}
 	defer db.Close()
 	tables, err := db.Tables()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error listing tables: %s\n", err)
-		os.Exit(1)
+		log.Fatalf("Error listing tables: %s\n", err)
 	}
 	entities := make([]*Entity, 0, 20)
 	for _, table := range tables {
 		columns, err := db.Columns(table)
 		if err != nil {
-			fmt.Fprintf(os.Stderr, "Error listing columns in '%s': %s\n", table, err)
-			os.Exit(1)
+			log.Fatalf("Error listing columns in '%s': %s\n", table, err)
 		}
 		attrs := make([]*Attribute, len(columns))
 		for i, col := range columns {
@@ -66,8 +62,7 @@ func main() {
 	for _, table := range tables {
 		fks, err := db.ForeignKeys(table)
 		if err != nil {
-			fmt.Fprintf(os.Stderr, "Error listing FKs in '%s': %s\n", table, err)
-			os.Exit(1)
+			log.Fatalf("Error listing FKs in '%s': %s\n", table, err)
 		}
 		if len(fks) > 0 {
 			for _, fk := range fks {
@@ -88,13 +83,11 @@ func main() {
 func render(erd *Erd) {
 	template, err := template.ParseFile("tmpl.dot")
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error loading template file: %s\n", err)
-		os.Exit(1)
+		log.Fatalf("Error loading template file: %s\n", err)
 	}
 	err = template.Execute(os.Stdout, erd)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error generating digraph: %s\n", err)
-		os.Exit(1)
+		log.Fatalf("Error generating digraph: %s\n", err)
 	}
 }
 
