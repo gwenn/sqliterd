@@ -6,7 +6,7 @@ package main
 import (
 	"log"
 	"os"
-	"github.com/gwenn/sqlite"
+	"github.com/gwenn/gosqlite"
 	"template"
 )
 
