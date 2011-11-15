@@ -4,10 +4,10 @@ The author disclaims copyright to this source code.
 package main
 
 import (
+	"github.com/gwenn/gosqlite"
 	"log"
 	"os"
-	"github.com/gwenn/gosqlite"
-	"template"
+	"text/template"
 )
 
 type Erd struct {
