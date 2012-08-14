@@ -1,1 +1,4 @@
 Tool to create a Graphviz dot file from SQLite database schema.
+
+TODO:
+ GraphML

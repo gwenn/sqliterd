@@ -41,13 +41,13 @@ func main() {
 		log.Fatalf("Error opening database '%s': %s\n", os.Args[1], err)
 	}
 	defer db.Close()
-	tables, err := db.Tables()
+	tables, err := db.Tables("")
 	if err != nil {
 		log.Fatalf("Error listing tables: %s\n", err)
 	}
 	entities := make([]*Entity, 0, 20)
 	for _, table := range tables {
-		columns, err := db.Columns(table)
+		columns, err := db.Columns("", table)
 		if err != nil {
 			log.Fatalf("Error listing columns in '%s': %s\n", table, err)
 		}
@@ -60,7 +60,7 @@ func main() {
 	}
 	rs := make([]*Relationship, 0, 20)
 	for _, table := range tables {
-		fks, err := db.ForeignKeys(table)
+		fks, err := db.ForeignKeys("", table)
 		if err != nil {
 			log.Fatalf("Error listing FKs in '%s': %s\n", table, err)
 		}
