@@ -4,10 +4,11 @@ The author disclaims copyright to this source code.
 package main
 
 import (
-	"github.com/gwenn/gosqlite"
 	"log"
 	"os"
 	"text/template"
+
+	"github.com/gwenn/gosqlite"
 )
 
 type Erd struct {
@@ -21,8 +22,9 @@ type Entity struct {
 }
 
 type Attribute struct {
-	Name string
-	Key  bool
+	Name    string
+	Key     bool
+	NotNull bool
 }
 
 type Relationship struct {
@@ -41,7 +43,7 @@ func main() {
 		log.Fatalf("Error opening database '%s': %s\n", os.Args[1], err)
 	}
 	defer db.Close()
-	tables, err := db.Tables("")
+	tables, err := db.Tables("", false)
 	if err != nil {
 		log.Fatalf("Error listing tables: %s\n", err)
 	}
