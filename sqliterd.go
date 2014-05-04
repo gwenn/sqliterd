@@ -43,7 +43,7 @@ func main() {
 		log.Fatalf("Error opening database '%s': %s\n", os.Args[1], err)
 	}
 	defer db.Close()
-	tables, err := db.Tables("", false)
+	tables, err := db.Tables("")
 	if err != nil {
 		log.Fatalf("Error listing tables: %s\n", err)
 	}
